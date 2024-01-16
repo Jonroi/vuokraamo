@@ -1,5 +1,4 @@
-<?php include 'header.php'; ?>
-
+<?php include "header.php"; ?>
 <div class="container marketing">
     <div class="row">
         <?php
@@ -19,7 +18,6 @@
                     echo '</div>';
                 } ?>
     </div>
-
     <div class="col-lg-4">
         <img class="rounded-circle"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="

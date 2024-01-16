@@ -1,15 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vuokraamo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
     <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
     <link rel="carousel.css" href="/style.css">
 </head>
@@ -69,16 +66,15 @@
     //käyttäjää ei päästetä muille sivuille ilman kirjautumista vaan hänet
     //ohjataan takaisin etusivulle
     //exit lopettaa koodin suorittamisen
-    if ($_SERVER["PHP_SELF"] != "/user/index.php"){
-        if ($_SERVER["PHP_SELF"] != "/user/kirjaudu.php"){
-            if (!isset($_SESSION["loggedin"])&&$_SESSION["loggedin"] !== true){
-                header("location: index.php");
-                exit;
-            
-            }
-        }
+
+// Check if the user is logged in and not on the index or kirjaudu page
+if (basename($_SERVER["PHP_SELF"]) !== "index.php" && basename($_SERVER["PHP_SELF"]) !== "kirjaudu.php") {
+    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("location: index.php");
+        exit;
     }
-    ?>
+}
+?>
 
     <mainrole="main">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -140,3 +136,4 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        </mainrole>
