@@ -23,25 +23,34 @@
                     class="navbar-toggler-icon"></span=""></button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="asiakas.php">Asiakas <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="video.php">Video</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="vuokraus.php">Vuokraus</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Myyja.php">Myyjä</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Raportit</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdownitem" href="vuokralla.php">Vuokralla"></a>
+                    <?php
+                    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+                        echo '<li class="nav-item';
+                        echo ($valikko==="asiakas") ? " active" : "";
+                        echo '"><a class="nav-link" href="asiakas.php">Asiakas <span class="sr-only"></span></a></li>';
+
+                        echo '<li class="nav-item';
+                        echo ($valikko==="video") ? " active" : "";
+                        echo '"><a class="nav-link" href="video.php">Video</a></li>';
+
+                        echo '<li class="nav-item';
+                        echo ($valikko==="vuokraus") ? " active" : "";
+                        echo '"><a class="nav-link" href="vuokraus.php">Vuokraus</a></li>';
+                        
+                        echo '<li class="nav-item';
+                        echo ($valikko==="myyja") ? " active" : "";
+                        echo '"><a class="nav-link" href="myyja.php">Myyjä</a></li>';
+                        
+                        echo '<li class="nav-item dropdown>';
+                        echo ($valikko==="raportit") ? " active" : "";
+                        echo '"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Raportit</a>
+                        <div class="dropdown-menu"aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="vuokralla.php">Vuokralla</a>
                         </div>
-                    </li>
+                        </li>';
+                    }
+                    ?>
+
                 </ul>
 
 
@@ -54,6 +63,22 @@
             </div>
         </nav>
     </header>
+    <?php
+    //ei tehdä tarkistusta jos olet jo kirjautunut
+    //ei tehdä jos olet etusivulla
+    //käyttäjää ei päästetä muille sivuille ilman kirjautumista vaan hänet
+    //ohjataan takaisin etusivulle
+    //exit lopettaa koodin suorittamisen
+    if ($_SERVER["PHP_SELF"] != "/user/index.php"){
+        if ($_SERVER["PHP_SELF"] != "/user/kirjaudu.php"){
+            if (!isset($_SESSION["loggedin"])&&$_SESSION["loggedin"] !== true){
+                header("location: index.php");
+                exit;
+            
+            }
+        }
+    }
+    ?>
 
     <mainrole="main">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
